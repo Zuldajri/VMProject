@@ -21,6 +21,26 @@
   "variables": {
   },
   "resources": [
-   
+   {
+      "apiVersion": "2018-06-01",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('virtualMachineNameExtra'), '/scriptextension')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.9",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+              "https://raw.githubusercontent.com/Zuldajri/VMProject/master/extraextensiontest.ps1"
+            ]
+            },
+      "protectedSettings": {
+         
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File v10powershell.ps1 -VMName ', parameters('virtualMachineNameExtra'), ' -GuestOSName ', parameters('virtualMachineNameExtra'), ' -StorageAccountName ', parameters('storageAccountName'), ' -StorageAccountKey ', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ' -USERNAME ', parameters('adminUsername'), ' -PASSWORD ', parameters('adminPassword'))]"
+      }
+    }
+  }
   ]
 }
