@@ -26,9 +26,6 @@
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('virtualMachineName'), '/scriptextension')]",
       "location": "[parameters('location')]",
-      "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
-      ],
       "properties": {
         "publisher": "Microsoft.Compute",
         "type": "CustomScriptExtension",
