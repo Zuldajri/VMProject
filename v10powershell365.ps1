@@ -11,8 +11,8 @@ Param(
 
 # Modify the $url 
 #Variables
-$url = "http://download.veeam.com/VeeamBackupOffice365_4.0.0.2516.zip"
-$output = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupOffice365_4.0.0.2516.zip"
+$url = "http://download.veeam.com/VeeamBackupOffice365_4.0.1.531.zip"
+$output = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupOffice365_4.0.1.531.zip"
 
 #Get Veeam Backup for Office 365 zip
 (New-Object System.Net.WebClient).DownloadFile($url, $output)
@@ -25,14 +25,14 @@ Initialize-Disk -PartitionStyle GPT -PassThru | `
 New-Partition -AssignDriveLetter -UseMaximumSize | ` 
 Format-Volume -FileSystem ReFS -NewFileSystemLabel "datadisk" -Confirm:$false
 
-Expand-Archive C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupOffice365_4.0.0.2516.zip -DestinationPath C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\ -Force
+Expand-Archive C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupOffice365_4.0.1.531.zip -DestinationPath C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\ -Force
 
 $source = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension"
 
 ### Veeam Backup Office 365
 $MSIArguments = @(
 "/i"
-"$source\Veeam.Backup365_4.0.0.2516.msi"
+"$source\Veeam.Backup365_4.0.1.531.msi"
 "/qn"
 "/norestart"
 "ADDLOCAL=BR_OFFICE365,CONSOLE_OFFICE365,PS_OFFICE365"
@@ -46,7 +46,7 @@ Sleep 60
 ### Veeam Explorer for Microsoft Exchange
 $MSIArguments = @(
 "/i"
-"$source\VeeamExplorerForExchange_10.0.0.443.msi"
+"$source\VeeamExplorerForExchange_4.0.1.519.msi"
 "/qn"
 "/norestart"
 "ADDLOCAL=BR_EXCHANGEEXPLORER,PS_EXCHANGEEXPLORER"
@@ -61,7 +61,7 @@ Sleep 60
 ### Veeam Explorer for Microsoft SharePoint
 $MSIArguments = @(
 "/i"
-"$source\VeeamExplorerForSharePoint_10.0.0.443.msi"
+"$source\VeeamExplorerForSharePoint_4.0.1.519.msi"
 "/qn"
 "/norestart"
 "ADDLOCAL=BR_SHAREPOINTEXPLORER,PS_SHAREPOINTEXPLORER"
