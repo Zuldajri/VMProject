@@ -38,7 +38,7 @@
             },
       "protectedSettings": {
          
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File v10powershell365.ps1 -VMName ', parameters('virtualMachineName'), ' -GuestOSName ', parameters('virtualMachineName'), ' -StorageAccountName ', parameters('storageAccountName'), ' -StorageAccountKey ', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ' -USERNAME ', parameters('adminUsername'), ' -PASSWORD ', parameters('adminPassword'))]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File v10powershell365.ps1 -GuestOSName ', parameters('virtualMachineName'), ' -StorageAccountName ', parameters('storageAccountName'), ' -StorageAccountKey ', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ' -USERNAME ', parameters('adminUsername'), ' -PASSWORD ', parameters('adminPassword'))]"
       }
     }
   }
