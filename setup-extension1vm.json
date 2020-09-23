@@ -2,7 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "virtualMachineNameExtra": {
+    "virtualMachineName": {
       "type": "string"
     },
     "location": {
@@ -24,7 +24,7 @@
    {
       "apiVersion": "2018-06-01",
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('virtualMachineNameExtra'), '/scriptextension')]",
+      "name": "[concat(parameters('virtualMachineName'), '/scriptextension')]",
       "location": "[parameters('location')]",
       "properties": {
         "publisher": "Microsoft.Compute",
@@ -38,7 +38,7 @@
             },
       "protectedSettings": {
          
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File extraextensiontest.ps1 -VMName ', parameters('virtualMachineNameExtra'), ' -GuestOSName ', parameters('virtualMachineNameExtra'), ' -StorageAccountName ', parameters('storageAccountName'), ' -StorageAccountKey ', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ' -USERNAME ', parameters('adminUsername'), ' -PASSWORD ', parameters('adminPassword'))]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File extraextensiontest.ps1 -VMName ', parameters('virtualMachineName'), ' -GuestOSName ', parameters('virtualMachineName'), ' -StorageAccountName ', parameters('storageAccountName'), ' -StorageAccountKey ', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value, ' -USERNAME ', parameters('adminUsername'), ' -PASSWORD ', parameters('adminPassword'))]"
       }
     }
   }
