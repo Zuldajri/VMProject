@@ -11,8 +11,8 @@ Param(
 
 # Modify the $url 
 #Variables
-$url = "http://download.veeam.com/VeeamBackupOffice365_4.0.1.531.zip"
-$output = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupOffice365_4.0.1.531.zip"
+$url = "https://download2.veeam.com/VBO/v5/GA/VeeamBackupOffice365_5.0.0.1070.zip"
+$output = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupOffice365_5.0.0.1070.zip"
 
 #Get Veeam Backup for Office 365 zip
 (New-Object System.Net.WebClient).DownloadFile($url, $output)
@@ -25,14 +25,14 @@ Initialize-Disk -PartitionStyle GPT -PassThru | `
 New-Partition -AssignDriveLetter -UseMaximumSize | ` 
 Format-Volume -FileSystem ReFS -NewFileSystemLabel "datadisk" -Confirm:$false
 
-Expand-Archive C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupOffice365_4.0.1.531.zip -DestinationPath C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\ -Force
+Expand-Archive C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupOffice365_5.0.0.1070.zip -DestinationPath C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\ -Force
 
 $source = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension"
 
 ### Veeam Backup Office 365
 $MSIArguments = @(
 "/i"
-"$source\Veeam.Backup365_4.0.1.531.msi"
+"$source\Veeam.Backup365_5.0.0.1070.msi"
 "/qn"
 "/norestart"
 "ADDLOCAL=BR_OFFICE365,CONSOLE_OFFICE365,PS_OFFICE365"
@@ -46,10 +46,10 @@ Sleep 60
 ### Veeam Explorer for Microsoft Exchange
 $MSIArguments = @(
 "/i"
-"$source\VeeamExplorerForExchange_4.0.1.519.msi"
+"$source\VeeamExplorerForExchange.msi"
 "/qn"
 "/norestart"
-"ADDLOCAL=BR_EXCHANGEEXPLORER,PS_EXCHANGEEXPLORER"
+"ADDLOCAL=BR_EXCHANGEEXPLORER,PS_EXCHANGEEXPLORER,REST_EXCHANGEEXPLORER"
 "ACCEPT_THIRDPARTY_LICENSES=1"
 "ACCEPT_EULA=1"
 )
@@ -61,10 +61,25 @@ Sleep 60
 ### Veeam Explorer for Microsoft SharePoint
 $MSIArguments = @(
 "/i"
-"$source\VeeamExplorerForSharePoint_4.0.1.519.msi"
+"$source\VeeamExplorerForSharePoint.msi"
 "/qn"
 "/norestart"
-"ADDLOCAL=BR_SHAREPOINTEXPLORER,PS_SHAREPOINTEXPLORER"
+"ADDLOCAL=BR_SHAREPOINTEXPLORER,PS_SHAREPOINTEXPLORER,REST_SHAREPOINTEXPLORER"
+"ACCEPT_THIRDPARTY_LICENSES=1"
+"ACCEPT_EULA=1"
+)
+Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
+
+Sleep 60
+
+
+### Veeam Explorer for Microsoft Teams
+$MSIArguments = @(
+"/i"
+"$source\VeeamExplorerForTeams.msi"
+"/qn"
+"/norestart"
+"ADDLOCAL=BR_TEAMSEXPLORER,PS_TEAMSEXPLORER,REST_TEAMSEXPLORER"
 "ACCEPT_THIRDPARTY_LICENSES=1"
 "ACCEPT_EULA=1"
 )
