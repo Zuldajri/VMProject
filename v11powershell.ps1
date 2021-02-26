@@ -96,7 +96,26 @@ $vPowerPath = "$($VeeamDrive)\vPowerNfs"
       else {
           throw "Setup Failed"
           }
+	  
+### Microsoft Report Viewer
+  Write-Host "    Microsoft Report Viewer ..." -ForegroundColor Yellow
+  $MSIArguments = @(
+      "/i"
+      "$source\Redistr\ReportViewer.msi"
+      "/qn"
+      "/norestart"
+      "/L*v"
+      "$logdir\03_ReportViewer.txt"
+  )
+  Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait -NoNewWindow
 
+  if (Select-String -path "$logdir\03_ReportViewer.txt" -pattern "Installation success or error status: 0.") {
+    Write-Host "    Setup OK" -ForegroundColor Green
+    }
+    else {
+        throw "Setup Failed"
+        }
+	
   ### SQL Express
           ### Info: https://msdn.microsoft.com/en-us/library/ms144259.aspx
           Write-Host "    Installing SQL Express ..." -ForegroundColor Yellow
