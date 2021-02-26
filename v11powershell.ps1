@@ -278,7 +278,7 @@ Connect-VBRServer
 Add-VBRAzureBlobAccount -Name $Using:StorageAccountName -SharedKey $Using:StorageAccountKey
 $account = Get-VBRAzureBlobAccount -Name $Using:StorageAccountName
 $connect = Connect-VBRAzureBlobService -Account $account -RegionType Global -ServiceType CapacityTier
-$container = Get-VBRAzureBlobContainer -Connection $connect | Where {$_.name -Match "veeam"}
+$container = Get-VBRAzureBlobContainer -Connection $connect | Where {$_.name -Match "bootdiagnostics-$Using:GuestOSName*"}
 New-VBRAzureBlobFolder -Container $container -Connection $connect -Name "VeeamObject"
 $folder1 = Get-VBRAzureBlobFolder -Container $container -Connection $connect -Name "VeeamObject"
 Add-VBRAzureBlobRepository -AzureBlobFolder $folder1 -Connection $connect
