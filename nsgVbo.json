@@ -21,11 +21,6 @@
         "displayName": "Network Security Group"
       },
       "properties": {
-        "securityRules": [
-          {
-           
-          }
-        ]
       }
     }
   ]
