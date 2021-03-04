@@ -23,17 +23,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "allow-inbound-rdp",
-            "properties": {
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "3389",
-              "sourceAddressPrefix": "Internet",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 1020,
-              "direction": "Inbound"
-            }
+           
           }
         ]
       }
