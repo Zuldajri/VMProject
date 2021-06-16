@@ -1,0 +1,47 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualMachineName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "storageAccountName": {
+      "type": "string"
+    },
+    "adminUsername": {
+      "type": "string"
+    },
+    "adminPassword": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "artifactsBaseUrl": "https://catalogartifact.azureedge.net/publicartifacts/veritas.backup-exec-20-0a9dfb91-8aa4-4302-ba0f-2137cc7b49fa-backup-exec-20-standard/Artifacts"
+  },
+  "resources": [
+    {
+      "apiVersion": "2018-06-01",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('virtualMachineName'), '/scriptextension')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Compute",
+        "type": "CustomScriptExtension",
+        "typeHandlerVersion": "1.9",
+        "autoUpgradeMinorVersion": true,
+        "settings": {
+          "fileUris": [
+              "[concat(variables('artifactsBaseUrl'),'/BEInstall.ps1')]"
+            ]
+            },
+      "protectedSettings": {
+         
+        "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -File BEInstall.ps1 ', parameters('adminUsername'), ' ', parameters('adminPassword'), ' OPT1')]"
+      }
+    }
+  }
+  ]
+}
