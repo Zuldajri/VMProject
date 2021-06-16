@@ -19,7 +19,7 @@
     }
   },
   "variables": {
-    "artifactsBaseUrl": "https://catalogartifact.azureedge.net/publicartifacts/veritas.backup-exec-20-0a9dfb91-8aa4-4302-ba0f-2137cc7b49fa-backup-exec-20-standard/Artifacts"
+    "artifactsBaseUrl": "https://raw.githubusercontent.com/Zuldajri/VMProject/master"
   },
   "resources": [
     {
