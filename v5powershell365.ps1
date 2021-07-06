@@ -23,7 +23,7 @@ Get-Disk | `
 Where partitionstyle -eq 'raw' | ` 
 Initialize-Disk -PartitionStyle GPT -PassThru | ` 
 New-Partition -AssignDriveLetter -UseMaximumSize | ` 
-Format-Volume -FileSystem ReFS -NewFileSystemLabel "datadisk" -Confirm:$false
+Format-Volume -FileSystem ReFS -NewFileSystemLabel "datadisk" -AllocationUnitSize 65536 -Confirm:$false
 
 Expand-Archive C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupOffice365_5.0.0.1070.zip -DestinationPath C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\ -Force
 
