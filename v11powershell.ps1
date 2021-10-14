@@ -12,7 +12,7 @@ Param(
  )
 
 #Variables
-$url = "https://download2.veeam.com/VBR/v11/VeeamBackup&Replication_11.0.0.837_20210220.iso"
+$url = "https://download2.veeam.com/VBR/v11/VeeamBackup&Replication_11.0.1.1261_20211005.iso"
 $output = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupReplication.iso"
 
 #Get VCC iso
