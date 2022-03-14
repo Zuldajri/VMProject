@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualMachineNameExtra": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "storageAccountName": {
+      "type": "string"
+    },
+    "adminUsername": {
+      "type": "string"
+    },
+    "adminPassword": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "storageAccountName": "[parameters('storageAccountName')]",
+    "adminUsername": "[parameters('adminUsername')]",
+    "adminPassword": "[parameters('adminPassword')]"
+  },
+  "resources": [
+   {
+      "apiVersion": "2018-06-01",
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('virtualMachineNameExtra'), '/scriptextension')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "publisher": "Microsoft.Azure.Extensions",
+			    "type": "CustomScript",
+			    "typeHandlerVersion": "2.0",
+			    "autoUpgradeMinorVersion": true,
+			    "settings": {
+				    "fileUris": [
+              "https://raw.githubusercontent.com/Zuldajri/VMProject/master/extensionrh2.sh"
+            ]
+            },
+      "protectedSettings": {
+         "commandToExecute": "[concat('bash ', 'extensionrh2.sh')]"
+      }
+    }
+  }
+  ]
+}
