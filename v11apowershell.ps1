@@ -19,6 +19,15 @@ $output = "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBack
 (New-Object System.Net.WebClient).DownloadFile($url, $output)
 Write-Output "Time taken: $((Get-Date).Subtract($start_time).Seconds) second(s)"
 
+
+$osDrive = ((Get-WmiObject Win32_OperatingSystem).SystemDrive).TrimEnd(":")
+$size = (Get-Partition -DriveLetter $osDrive).Size
+$maxSize = (Get-PartitionSupportedSize -DriveLetter $osDrive).SizeMax
+if ($size -lt $maxSize){
+     Resize-Partition -DriveLetter $osDrive -Size $maxSize
+}
+
+
 #Initialize Data Disks
 Get-Disk | ` 
 Where partitionstyle -eq 'raw' | ` 
