@@ -11,7 +11,12 @@ Param(
     [string] $PASSWORD
  )
 
-
+$osDrive = ((Get-WmiObject Win32_OperatingSystem).SystemDrive).TrimEnd(":")
+$size = (Get-Partition -DriveLetter $osDrive).Size
+$maxSize = (Get-PartitionSupportedSize -DriveLetter $osDrive).SizeMax
+if ($size -lt $maxSize){
+     Resize-Partition -DriveLetter $osDrive -Size $maxSize
+}
 
 #Initialize Data Disks
 Get-Disk | ` 
