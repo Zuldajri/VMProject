@@ -32,7 +32,7 @@ New-Partition -AssignDriveLetter -UseMaximumSize | `
 Format-Volume -FileSystem ReFS -NewFileSystemLabel "datadisk" -AllocationUnitSize 65536 -Confirm:$false
 
 
-$iso = Get-ChildItem -Path "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupReplication.iso"
+$iso = Get-ChildItem -Path "C:\Packages\Plugins\Microsoft.Compute.CustomScriptExtension\VeeamBackupMicrosoft365.iso"
 Mount-DiskImage $iso.FullName
 
 $setup = $(Get-DiskImage -ImagePath $iso.FullName | Get-Volume).DriveLetter +':' 
